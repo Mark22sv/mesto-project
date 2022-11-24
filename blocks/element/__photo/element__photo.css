@@ -1,0 +1,9 @@
+.element__photo {
+  display: block;
+  width: 282px;
+  height: 282px;
+  background-color: #c4c4c4;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+  margin-bottom: 25px;
+}

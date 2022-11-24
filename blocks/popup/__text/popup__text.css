@@ -1,0 +1,48 @@
+.popup__text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  padding: 0;
+  font-family: inherit;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+}
+.popup__text::placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  padding: 0;
+  font-family: inherit;
+  background-color: transparent;
+}
+
+.popup__text::-webkit-input-placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  padding: 0;
+  font-family: inherit;
+  background-color: transparent;
+}
+.popup__text::-moz-placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  padding: 0;
+  font-family: inherit;
+  background-color: transparent;
+}
+.popup__text::-ms-input-placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  padding: 0;
+  font-family: inherit;
+  background-color: transparent;
+}
+
