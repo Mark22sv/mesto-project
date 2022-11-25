@@ -8,4 +8,4 @@
 
 Использованы технологии: HTML, CSS
 
-[Ссылка на GitHub pages](https:///Mark22sv.github.io/mesto/index.html)
+[Ссылка на GitHub pages](https:///Mark22sv.github.io/mesto-project/index.html)
