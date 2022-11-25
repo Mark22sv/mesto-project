@@ -1,7 +1,6 @@
 .header {
   max-width: 880px;
   width: 100%;
-  min-height: 74px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -19,7 +18,5 @@
 @media screen and (max-width: 767px) {
   .header {
     width: 320px;
-    margin-bottom: 42px;
-    min-height: 56px;
   }
 }

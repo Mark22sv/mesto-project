@@ -17,11 +17,14 @@
     <main class="content">
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar-image.jpg" alt="Аватарка">
-        <ul class="profile__info">
-          <li><h1 class="profile__name">Жак-Ив Кусто<button type="button" class="profile__edit-button"></button></h1></li>
-          <li><p class="profile__profession">Исследователь океана</p></li>
-        </ul>
-        <button type="button" class="profile__add-button"></button>
+          <div class="profile__data">
+            <div class="profile__info">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <p class="profile__profession">Исследователь океана</p>
+            </div>
+            <button type="button" aria-label="Редактировать профиль" class="profile__edit-button"></button>
+          </div>
+        <button type="button" aria-label="Добавить" class="profile__add-button"></button>
       </section>
       <section class="elements">
         <ul class="elements__list">
@@ -29,54 +32,54 @@
             <img class="element__photo" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
             <div class="element__description">
               <h2 class="element__title">Карачаевск</h2>
-              <button type="button" class="element__vector"></button>
+              <button type="button" aria-label="Отметить" class="element__vector"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
             <div class="element__description">
               <h2 class="element__title">Гора Эльбрус</h2>
-              <button type="button" class="element__vector"></button>
+              <button type="button" aria-label="Отметить" class="element__vector"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__photo" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
             <div class="element__description">
               <h2 class="element__title">Домбай</h2>
-              <button type="button" class="element__vector"></button>
+              <button type="button" aria-label="Отметить" class="element__vector"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
             <div class="element__description">
               <h2 class="element__title">Гора Эльбрус</h2>
-              <button type="button" class="element__vector"></button>
+              <button type="button"aria-label="Отметить"  class="element__vector"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__photo" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
             <div class="element__description">
               <h2 class="element__title">Домбай</h2>
-              <button type="button" class="element__vector"></button>
+              <button type="button" aria-label="Отметить" class="element__vector"></button>
             </div>
           </li>
           <li class="element">
             <img class="element__photo" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаево-Ч...">
             <div class="element__description">
               <h2 class="element__title">Карачаево-Черкесия</h2>
-              <button type="button" class="element__vector"></button>
+              <button type="button"aria-label="Отметить"  class="element__vector"></button>
             </div>
           </li>
         </ul>
       </section>
-      <section class="popup">
+      <section class="popup popup_opened">
         <div class="popup__container">
-          <button type="button" class="popup__close-icon"></button>
+          <button type="button" aria-label="Закрыть попап" class="popup__close-icon"></button>
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <form class="">
-            <input type="text" class="popup__name popup__text" id="name" name="name" placeholder="Жак-Ив Кусто" required>
-            <input type="text" class="popup__profession popup__text" id="about-me" name="about-me" placeholder="Исследователь океана" required>
-            <button type="button" class="popup__submit-button">Сохранить</button>
+          <form class="popup__user-data" name="user-data">
+            <input type="text" class="popup__text" id="name" name="name" placeholder="Жак-Ив Кусто" required>
+            <input type="text" class="popup__text" id="about-me" name="about-me" placeholder="Исследователь океана" required>
+            <button type="submit" aria-label="Сохранить данные" class="popup__submit-button">Сохранить</button>
           </form>
         </div>
       </section>
