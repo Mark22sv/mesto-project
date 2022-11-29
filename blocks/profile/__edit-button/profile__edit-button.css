@@ -1,5 +1,5 @@
 .profile__edit-button {
-  display: inline-block;
+  display: block;
   background: transparent;
   background-image: url("../../../images/Edit-Button.svg");
   background-size: cover;
@@ -12,7 +12,6 @@
   padding: 0;
   cursor: pointer;
   transition: .5s;
-  align-self: flex-start;
 }
 .profile__edit-button:hover {
   opacity: .6;
