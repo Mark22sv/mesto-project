@@ -1,0 +1,10 @@
+.profile__data {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__data {
+    max-width: 282px;
+  }
+}
