@@ -17,6 +17,8 @@ const linkInput = formAddCard.querySelector('#link');
 const popupImage = content.querySelector('.popup__image');
 const popupImagePhoto = content.querySelector('.popup__photo');
 const popupImageTitle = content.querySelector('.popup__title');
+let newCard = content.querySelector('.element');
+
 
 // Функция открыть (закрыть) popup
 
@@ -31,12 +33,8 @@ function closePopup(popup) {
 
 // Функция получения данных пользователя
 
-function handleFormSubmit(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-                                              // Так мы можем определить свою логику отправки.
-                                              // О том, как это делать, расскажем позже.
-  nameInput.value;
-  jobInput.value;
+function submitEditProfileForm(evt) {
+  evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
   closePopup(popupEditProfile);
@@ -61,28 +59,26 @@ function createCard (titleName, linkName) {
   cardElement.querySelector('.element__photo').addEventListener('click', () => {
     openPopupImage(linkName, titleName);
   });
-  AddCard(cardElement);
+  return newCard = cardElement;
 }
 
 // Функция добавления карточки
 
-function AddCard(cardElement) {
-  elementList.prepend(cardElement);
+function addCard(newCard) {
+  elementList.prepend(newCard);
 }
 
 // Функция получение данных карточки
 
-function handleFormSubmitCards(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-                                              // Так мы можем определить свою логику отправки.
-                                              // О том, как это делать, расскажем позже.
-
+function submitAddCardsForm(evt) {
+  evt.preventDefault();
   const titleName = titleInput.value;
   const linkName = linkInput.value;
   closePopup(popupAddCard);
   createCard (titleName, linkName);
-  titleInput.value = "Название";
-  linkInput.value = "Ссылка на картинку";
+  addCard(newCard);
+  titleInput.value = titleInput.ariaPlaceholder;
+  linkInput.value = linkInput.ariaPlaceholder;
 }
 
 // Функция открытия popup-image
@@ -98,12 +94,13 @@ function openPopupImage(linkName, titleName) {
 
 for (let i = 0; i < initialCards.length; i++){
   createCard(initialCards[i].name, initialCards[i].link);
+  addCard(newCard);
 }
 
 // Установка слушателей
 
 // Редактировать профиль
-formEditProfile.addEventListener('submit', handleFormSubmit);
+formEditProfile.addEventListener('submit', submitEditProfileForm);
 
 // Открыть (закрыть) popup
 profileEditButton.addEventListener('click', () => {
@@ -123,7 +120,8 @@ popupCloseIcon.forEach(element => element.addEventListener('click', () => {
 );
 
 // Карточки добавление
-formAddCard.addEventListener('submit', handleFormSubmitCards);
+
+formAddCard.addEventListener('submit', submitAddCardsForm);
 
 
 
