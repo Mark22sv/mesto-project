@@ -59,7 +59,7 @@ function createCard (titleName, linkName) {
   cardElement.querySelector('.element__photo').addEventListener('click', () => {
     openPopupImage(linkName, titleName);
   });
-  return newCard = cardElement;
+  newCard = cardElement;
 }
 
 // Функция добавления карточки
