@@ -9,6 +9,7 @@
   padding: 0;
   margin: 0;
   position: relative;
+  cursor: auto;
 }
 
 @media screen and (max-width: 767px) {

@@ -18,7 +18,7 @@ const popupImage = content.querySelector('.popup__image');
 const popupImagePhoto = content.querySelector('.popup__photo');
 const popupImageTitle = content.querySelector('.popup__title');
 let newCard = content.querySelector('.element');
-
+const popup = content.querySelectorAll('.popup');
 
 // Функция открыть (закрыть) popup
 
@@ -26,8 +26,8 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+function closePopup() {
+  popup.forEach((element) => element.classList.remove('popup_opened'));
 }
 
 
@@ -110,19 +110,26 @@ profileEditButton.addEventListener('click', () => {
 });
 
 cardAddbutton.addEventListener('click', () => {
-
   openPopup(popupAddCard);
 });
 
-popupCloseIcon.forEach(element => element.addEventListener('click', () => {
-  closePopup(element.closest('.popup'));
-})
-);
 
 // Карточки добавление
 
 formAddCard.addEventListener('submit', submitAddCardsForm);
 
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup();
+  }
+});
+
+popup.forEach(element => element.addEventListener('click', evt => {
+  if (evt.target.classList.value.includes('popup_opened') || evt.target.classList.value === 'popup__close-icon') {
+    closePopup();
+  }
+})
+);
 
 
 
