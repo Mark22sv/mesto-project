@@ -43,9 +43,15 @@
         <div class="popup__container">
           <button type="button" aria-label="Закрыть попап" class="popup__close-icon"></button>
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <form class="popup__data" id="form-edit-profile" name="user-data">
-            <input type="text" class="popup__text" id="name" name="name" placeholder="Имя">
-            <input type="text" class="popup__text" id="about-me" name="about-me" placeholder="Вид деятельности">
+          <form class="popup__data" id="form-edit-profile" name="user-data" novalidate>
+            <label class="popup__data-field">
+              <input type="text" class="popup__text" id="name" name="name" placeholder="Имя" required minlength = '2' maxlength = '40'  pattern="^[A-Za-zА-Яа-яЁё\s-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+              <span class="popup__text-error name-error"></span>
+            </label>
+            <label class="popup__data-field">
+              <input type="text" class="popup__text" id="about-me" name="about-me" placeholder="Вид деятельности" required minlength = '2' maxlength = '200' pattern="^[A-Za-zА-Яа-яЁё\s-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+              <span class="popup__text-error about-me-error"></span>
+            </label>
             <button type="submit" class="popup__submit-button" id="submit-edit-profile">Сохранить</button>
           </form>
         </div>
@@ -55,8 +61,14 @@
           <button type="button" aria-label="Закрыть попап" class="popup__close-icon"></button>
           <h2 class="popup__heading">Новое место</h2>
           <form class="popup__data" id="form-add-card" name="image-data">
-            <input type="text" class="popup__text" id="title" name="title" placeholder="Название">
-            <input type="text" class="popup__text" id="link" name="link" placeholder="Ссылка на картинку">
+            <label class="popup__data-field">
+              <input type="text" class="popup__text" id="title" name="title" placeholder="Название" required minlength = '2' maxlength = '30' pattern="^[A-Za-zА-Яа-яЁё\s-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+              <span class="popup__text-error title-error"></span>
+            </label>
+            <label class="popup__data-field">
+              <input type="url" class="popup__text" id="link" name="link" placeholder="Ссылка на картинку" required>
+              <span class="popup__text-error link-error"></span>
+            </label>
             <button type="submit" class="popup__submit-button" id="submit-add-card">Сохранить</button>
           </form>
         </div>
