@@ -27,8 +27,6 @@ function submitEditProfileForm(evt) {
   closePopup();
 }
 
-
-
 // Функция получение данных карточки
 
 function submitAddCardsForm(evt) {

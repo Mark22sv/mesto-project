@@ -48,12 +48,6 @@ cardAddbutton.addEventListener('click', () => {
 // Карточки добавление
 formAddCard.addEventListener('submit', submitAddCardsForm);
 
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    closePopup();
-  }
-});
-
 popup.forEach(element => element.addEventListener('click', evt => {
   (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-icon')) ? closePopup() : null;
   })
