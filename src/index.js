@@ -12,8 +12,8 @@ const popup = document.querySelectorAll('.popup');
 const formAddCard = document.querySelector('#form-add-card');
 
 export { nameInput, jobInput, profileName, profileProfession, popup };
-
-import { initialCards } from './constant.js';
+import './pages/index.css';
+import { initialCards } from './components/constant.js';
 import { enableValidation } from './components/validate.js';
 import { createCard, addCard, newCard } from './components/card.js';
 import { submitAddCardsForm, submitEditProfileForm } from './components/modal.js';
