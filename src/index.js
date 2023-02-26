@@ -1,5 +1,5 @@
 const content = document.querySelector('.content');
-const formEditProfile =content.querySelector('#form-edit-profile')
+const formEditProfile = document.forms['user-data'];
 const nameInput = content.querySelector('#name');
 const jobInput = content.querySelector('#about-me');
 const profileName = content.querySelector('.profile__name');
@@ -8,14 +8,14 @@ const popupEditProfile = content.querySelector('.popup__edit-profile');
 const profileEditButton = content.querySelector('.profile__edit-button');
 const popupAddCard = content.querySelector('.popup__add-card');
 const cardAddbutton = content.querySelector('.profile__add-button');
-const popup = document.querySelectorAll('.popup');
-const formAddCard = document.querySelector('#form-add-card');
+const popups = document.querySelectorAll('.popup');
+const formAddCard = document.forms['image-data'];
 
-export { nameInput, jobInput, profileName, profileProfession, popup };
+export { nameInput, jobInput, profileName, profileProfession, popups };
 import './pages/index.css';
 import { initialCards } from './components/constant.js';
 import { enableValidation } from './components/validate.js';
-import { createCard, addCard, newCard } from './components/card.js';
+import { createCard, addCard } from './components/card.js';
 import { submitAddCardsForm, submitEditProfileForm } from './components/modal.js';
 import { openPopup, closePopup } from './components/utils.js';
 
@@ -23,7 +23,7 @@ import { openPopup, closePopup } from './components/utils.js';
 // Вызов функции создания карточек
 
 for (let i = 0; i < initialCards.length; i++){
-  createCard(initialCards[i].name, initialCards[i].link);
+  const newCard = createCard(initialCards[i].name, initialCards[i].link);
   addCard(newCard);
 }
 
@@ -48,8 +48,10 @@ cardAddbutton.addEventListener('click', () => {
 // Карточки добавление
 formAddCard.addEventListener('submit', submitAddCardsForm);
 
-popup.forEach(element => element.addEventListener('click', evt => {
-  (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-icon')) ? closePopup() : null;
+popups.forEach(element => element.addEventListener('mousedown', evt => {
+  (evt.target.classList.contains('popup_opened') ||
+  evt.target.classList.contains('popup__close-icon'))
+  ? closePopup() : null;
   })
 );
 

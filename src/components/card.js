@@ -1,7 +1,6 @@
 const elementList = document.querySelector ('.elements__list');
 const cardTemplate = document.querySelector('#cards').content;
 
-let newCard;
 import { openPopupImage } from "./modal.js";
 
 // Функция создания карточки
@@ -20,10 +19,10 @@ function createCard (titleName, linkName) {
     evt.target.classList.toggle('element__vector_active');
   });
 
-  cardElement.querySelector('.element__photo').addEventListener('click', () => {
+  elementPhoto.addEventListener('click', () => {
     openPopupImage(linkName, titleName);
   });
-  newCard = cardElement;
+  return cardElement;
 }
 
 // Функция добавления карточки
@@ -32,4 +31,4 @@ function addCard(newCard) {
   elementList.prepend(newCard);
 }
 
-export { createCard, addCard, newCard };
+export { createCard, addCard };

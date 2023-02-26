@@ -1,4 +1,4 @@
-const formAddCard = document.querySelector('#form-add-card');
+const formAddCard = document.forms['image-data'];
 const titleInput = formAddCard.querySelector('#title');
 const linkInput = formAddCard.querySelector('#link');
 const popupImage = document.querySelector('.popup__image');
@@ -7,7 +7,7 @@ const popupImageTitle = document.querySelector('.popup__title');
 
 import { openPopup, closePopup } from "./utils.js";
 import { profileName, profileProfession, nameInput, jobInput } from "../index.js";
-import { createCard, addCard, newCard } from './card.js';
+import { createCard, addCard } from './card.js';
 
 // Функция открытия popup-image
 
@@ -25,6 +25,7 @@ function submitEditProfileForm(evt) {
   profileName.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
   closePopup();
+  evt.target.reset();
 }
 
 // Функция получение данных карточки
@@ -34,10 +35,9 @@ function submitAddCardsForm(evt) {
   const titleName = titleInput.value;
   const linkName = linkInput.value;
   closePopup();
-  createCard (titleName, linkName);
+  const newCard = createCard (titleName, linkName);
   addCard(newCard);
-  titleInput.value = titleInput.ariaPlaceholder;
-  linkInput.value = linkInput.ariaPlaceholder;
+  evt.target.reset();
 }
 
 

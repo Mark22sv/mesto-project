@@ -1,31 +1,18 @@
-import { popup } from "../index.js";
+import { popups } from "../index.js";
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  addListenerPopup();
-  disActivetedButton(popup);
+  document.addEventListener('keydown', handleEscape);
 }
 
 function closePopup() {
-  popup.forEach((element) => element.classList.remove('popup_opened'));
-  document.removeEventListener('keydown', keyHandler);
+  popups.forEach((element) => element.classList.remove('popup_opened'));
+  document.removeEventListener('keydown', handleEscape);
 }
 
-function addListenerPopup(){
-  document.addEventListener('keydown', keyHandler);
-}
-
-function keyHandler(evt) {
+function handleEscape(evt) {
   if (evt.key === 'Escape') {
     closePopup();
-  }
-}
-
-function disActivetedButton(button){
-  if (button.id == 'popup-submit-form'){
-  const buttonElement = button.querySelector('.popup__submit-button');
-  buttonElement.setAttribute('disabled', true);
-  buttonElement.classList.add('popup__submit-button_inactive');
   }
 }
 
