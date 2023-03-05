@@ -1,5 +1,5 @@
 .element__delete-icon {
-  display: block;
+  display: none;
   background: transparent;
   background-image: url("../../../images/delete-icon.svg");
   background-size: cover;

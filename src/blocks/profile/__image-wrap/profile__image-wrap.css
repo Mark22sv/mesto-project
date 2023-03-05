@@ -1,0 +1,7 @@
+.profile__image-wrap{
+  position: relative;
+  display: block;
+  width: 120px;
+  height: 120px;
+  align-self: flex-start;
+}

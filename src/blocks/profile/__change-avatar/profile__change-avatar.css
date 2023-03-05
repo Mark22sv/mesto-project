@@ -1,0 +1,18 @@
+.profile__change-avatar{
+  display: none;
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  position: absolute;
+  top: 47px;
+  left: 47px;
+  transition: .5s;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__avatar-avatar{
+    margin-bottom: 26px;
+    align-self: center;
+  }
+}
+
