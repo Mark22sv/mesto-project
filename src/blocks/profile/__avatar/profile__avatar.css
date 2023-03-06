@@ -22,4 +22,9 @@
   opacity: .8;
 }
 
+.profile__avatar:hover + .profile__change-avatar{
+  display: block;
+ 
+}
+
 

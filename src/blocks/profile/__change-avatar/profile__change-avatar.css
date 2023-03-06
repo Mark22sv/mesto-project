@@ -7,12 +7,19 @@
   top: 47px;
   left: 47px;
   transition: .5s;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {
-  .profile__avatar-avatar{
+  .profile__change-avatar{
     margin-bottom: 26px;
     align-self: center;
   }
 }
+
+.profile__change-avatar:hover{
+  display: block;
+}
+
+
 

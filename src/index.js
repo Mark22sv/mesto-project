@@ -14,6 +14,15 @@ const cardAddbutton = content.querySelector('.profile__add-button');
 const popups = document.querySelectorAll('.popup');
 const formAddCard = document.forms['image-data'];
 const formChangeAvatar = document.forms['avatar-data'];
+const configValidstion =
+{
+  formSelector: '.popup__data',
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_inactive',
+  inputErrorClass: 'popup__text_type_error',
+  errorClass: 'popup__text-error_active'
+};
 let userId;
 
 export { nameInput, jobInput, profileName, profileProfession, popups, userId, profileAvatar };
@@ -52,17 +61,13 @@ formAddCard.addEventListener('submit', submitAddCardsForm);
 profileAvatar.addEventListener('click', () => {
   openPopup(popupChangeAvatar);
 });
-
-profileAvatar.addEventListener('mouseover', () => {
-  profileChangeAvatar.style.display = 'block';
-})
-
-profileAvatar.addEventListener('mouseout', () => {
-  profileChangeAvatar.style.display = 'none';
-})
+profileChangeAvatar.addEventListener('click', () => {
+  openPopup(popupChangeAvatar);
+});
 
 formChangeAvatar.addEventListener('submit', submitChangeAvatar);
-profileChangeAvatar.addEventListener('submit', submitChangeAvatar);
+
+
 
 //закрытие popup по overlry
 popups.forEach(element => element.addEventListener('mousedown', evt => {
@@ -72,21 +77,13 @@ popups.forEach(element => element.addEventListener('mousedown', evt => {
   })
 );
 //Валидация
-enableValidation({
-  formSelector: '.popup__data',
-  inputSelector: '.popup__text',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_inactive',
-  inputErrorClass: 'popup__text_type_error',
-  errorClass: 'popup__text-error_active'
-});
+enableValidation(configValidstion);
 
 //Получение карточек
 getCards()
   .then((result) => {
     for (let i = result.length - 1; i >= 0; i--){
-    //console.log(result[i].likes)
-    const newCard = createCard(result[i].name, result[i].link, result[i].owner._id, result[i].likes, result[i]._id);
+      const newCard = createCard(result[i].name, result[i].link, result[i].owner._id, result[i].likes, result[i]._id);
     addCard(newCard);
     }
   })

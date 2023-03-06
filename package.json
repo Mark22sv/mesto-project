@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "author": "Sergey Markovichenko",
   "license": "ISC",
@@ -25,6 +27,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "core-js": "^3.28.0"
+    "core-js": "^3.28.0",
+    "gh-pages": "^5.0.0"
   }
 }

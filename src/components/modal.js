@@ -42,10 +42,8 @@ function submitEditProfileForm(evt) {
     console.log(`Ошибка: ${err}`);
   })
   .finally(()=> {
-    setTimeout(() => {
-      setTextButton(evt.submitter, 'Сохранить');
-      }, 1000);
-    });
+    setTextButton(evt.submitter, 'Сохранить');
+  });
 }
 
 // Функция получение данных карточки
@@ -66,9 +64,7 @@ function submitAddCardsForm(evt) {
     console.log(`Ошибка: ${err}`);
   })
   .finally(()=> {
-    setTimeout(() => {
-      setTextButton(evt.submitter, 'Сохранить');
-      }, 1000);
+    setTextButton(evt.submitter, 'Сохранить');
     });
 }
 
@@ -86,9 +82,7 @@ function submitChangeAvatar(evt) {
     console.log(`Ошибка: ${err}`);
   })
   .finally(()=> {
-    setTimeout(() => {
-      setTextButton(evt.submitter, 'Сохранить');
-      }, 1000);
+    setTextButton(evt.submitter, 'Сохранить');
     });
 }
 
