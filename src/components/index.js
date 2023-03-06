@@ -26,12 +26,11 @@ const configValidstion =
 let userId;
 
 export { nameInput, jobInput, profileName, profileProfession, popups, userId, profileAvatar };
-import './pages/index.css';
-import { getCards, getDataUser } from './components/api.js';
-import { enableValidation } from './components/validate.js';
-import { createCard, addCard } from './components/card.js';
-import { submitAddCardsForm, submitEditProfileForm, submitChangeAvatar } from './components/modal.js';
-import { openPopup, closePopup } from './components/utils.js';
+import { getCards, getDataUser } from './api.js';
+import { enableValidation } from './validate.js';
+import { createCard, addCard } from './card.js';
+import { submitAddCardsForm, submitEditProfileForm, submitChangeAvatar } from './modal.js';
+import { openPopup, closePopup } from './utils.js';
 
 
 // Вызов функции создания карточек
@@ -95,6 +94,5 @@ Promise.all([getCards(), getDataUser()])
 .catch((err) => {
   console.log(`Ошибка: ${err}`);
 });
-
 
 
