@@ -42,8 +42,10 @@ function submitEditProfileForm(evt) {
     console.log(`Ошибка: ${err}`);
   })
   .finally(()=> {
-    setTextButton(evt.submitter, 'Сохранить')
-  })
+    setTimeout(() => {
+      setTextButton(evt.submitter, 'Сохранить');
+      }, 1000);
+    });
 }
 
 // Функция получение данных карточки
@@ -64,8 +66,10 @@ function submitAddCardsForm(evt) {
     console.log(`Ошибка: ${err}`);
   })
   .finally(()=> {
-    setTextButton(evt.submitter, 'Сохранить')
-  })
+    setTimeout(() => {
+      setTextButton(evt.submitter, 'Сохранить');
+      }, 1000);
+    });
 }
 
 function submitChangeAvatar(evt) {
@@ -82,8 +86,10 @@ function submitChangeAvatar(evt) {
     console.log(`Ошибка: ${err}`);
   })
   .finally(()=> {
-    setTextButton(evt.submitter, 'Сохранить')
-  })
+    setTimeout(() => {
+      setTextButton(evt.submitter, 'Сохранить');
+      }, 1000);
+    });
 }
 
 
