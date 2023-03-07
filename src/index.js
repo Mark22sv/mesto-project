@@ -14,6 +14,7 @@ const cardAddbutton = content.querySelector('.profile__add-button');
 const popups = document.querySelectorAll('.popup');
 const formAddCard = document.forms['image-data'];
 const formChangeAvatar = document.forms['avatar-data'];
+const buttonRemoveCard =  document.querySelector('#submit-remove-card');
 const configValidstion =
 {
   formSelector: '.popup__data',
@@ -27,16 +28,11 @@ let userId;
 
 export { nameInput, jobInput, profileName, profileProfession, popups, userId, profileAvatar };
 import './pages/index.css';
-import { getCards, getDataUser } from './components/api.js';
+import { getCards, getDataUser, removeCard } from './components/api.js';
 import { enableValidation } from './components/validate.js';
-import { createCard, addCard } from './components/card.js';
+import { createCard, addCard, deleteCard, deleteCardId } from './components/card.js';
 import { submitAddCardsForm, submitEditProfileForm, submitChangeAvatar } from './components/modal.js';
 import { openPopup, closePopup } from './components/utils.js';
-
-
-// Вызов функции создания карточек
-
-
 
 // Установка слушателей
 
@@ -56,6 +52,18 @@ cardAddbutton.addEventListener('click', () => {
 });
 // Карточки добавление
 formAddCard.addEventListener('submit', submitAddCardsForm);
+
+//Слушетель на кнопку popup согласие на удаление карточки
+buttonRemoveCard.addEventListener('click', () => {
+  removeCard(deleteCardId, deleteCard)
+  .then(() => {
+    deleteCard.remove();
+    closePopup();
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  })
+});
 
 //Изменение аватара
 profileAvatar.addEventListener('click', () => {
@@ -80,7 +88,6 @@ popups.forEach(element => element.addEventListener('mousedown', evt => {
 enableValidation(configValidstion);
 
 //Получение карточек //Получение данных пользователя
-
 Promise.all([getCards(), getDataUser()])
 .then((result) => {
   profileName.textContent = result[1].name;

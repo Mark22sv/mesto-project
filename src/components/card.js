@@ -1,12 +1,13 @@
 const elementList = document.querySelector ('.elements__list');
 const cardTemplate = document.querySelector('#cards').content;
 const popupRemoveCard = document.querySelector('.popup__remove-card');
-const buttonRemoveCard =  document.querySelector('#submit-remove-card');
+
+let deleteCard, deleteCardId;
 
 import { openPopupImage } from "./modal.js";
 import { userId  } from "../index.js";
-import { removeCard, addLikeCard, removeLikeCard } from "./api.js";
-import { openPopup, closePopup } from './utils.js';
+import { addLikeCard, removeLikeCard } from "./api.js";
+import { openPopup } from './utils.js';
 
 // Функция создания карточки
 
@@ -22,22 +23,13 @@ function createCard (titleName, linkName, user, likes, cardId) {
   const elementVector = cardElement.querySelector('.element__vector');
   if (hasCardLikes(likes)) elementVector.classList.add('element__vector_active');
   cardElement.querySelector('.element__title').textContent = titleName;
-  const deleteButton = cardElement.querySelector(".element__delete-icon");
+  const deleteIcon = cardElement.querySelector(".element__delete-icon");
   if (cardElement.dataset.owner == userId){
-    deleteButton.classList.add('element__delete-icon_active');
-    deleteButton.addEventListener('click', function (evt){
+    deleteIcon.classList.add('element__delete-icon_active');
+    deleteIcon.addEventListener('click', function (evt){
+      deleteCard = evt.target.closest('.element');
+      deleteCardId = cardElement.dataset.card_id;
       openPopup(popupRemoveCard);
-      buttonRemoveCard.addEventListener('click', () => {
-        removeCard(cardElement.dataset.card_id)
-        .then(() => {
-          const deleteButton = evt.target.closest('.element');
-          deleteButton.remove();
-          closePopup();
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-        })
-      });
     });
   }
   elementVector.addEventListener('click', function (evt){
@@ -82,4 +74,4 @@ function addCard(newCard) {
   elementList.prepend(newCard);
 }
 
-export { createCard, addCard };
+export { createCard, addCard, deleteCard, deleteCardId };

@@ -5,3 +5,9 @@
   height: 120px;
   align-self: flex-start;
 }
+
+@media screen and (max-width: 767px) {
+  .profile__image-wrap{
+    margin: 0 auto;
+  }
+}
