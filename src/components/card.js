@@ -5,7 +5,7 @@ const popupRemoveCard = document.querySelector('.popup__remove-card');
 let deleteCard, deleteCardId;
 
 import { openPopupImage } from "./modal.js";
-import { userId  } from "../index.js";
+import { userId  } from "./index.js";
 import { addLikeCard, removeLikeCard } from "./api.js";
 import { openPopup } from './utils.js';
 

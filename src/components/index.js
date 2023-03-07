@@ -27,12 +27,12 @@ const configValidstion =
 let userId;
 
 export { nameInput, jobInput, profileName, profileProfession, popups, userId, profileAvatar };
-import './pages/index.css';
-import { getCards, getDataUser, removeCard } from './components/api.js';
-import { enableValidation } from './components/validate.js';
-import { createCard, addCard, deleteCard, deleteCardId } from './components/card.js';
-import { submitAddCardsForm, submitEditProfileForm, submitChangeAvatar } from './components/modal.js';
-import { openPopup, closePopup } from './components/utils.js';
+import '../pages/index.css';
+import { getCards, getDataUser, removeCard } from './api.js';
+import { enableValidation } from './validate.js';
+import { createCard, addCard, deleteCard, deleteCardId } from './card.js';
+import { submitAddCardsForm, submitEditProfileForm, submitChangeAvatar } from './modal.js';
+import { openPopup, closePopup } from './utils.js';
 
 // Установка слушателей
 

@@ -1,4 +1,4 @@
-import { popups } from "../index.js";
+import { popups } from "./index.js";
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');

@@ -7,7 +7,7 @@ const popupImagePhoto = document.querySelector('.popup__photo');
 const popupImageTitle = document.querySelector('.popup__title');
 
 import { openPopup, closePopup } from "./utils.js";
-import { profileName, profileProfession, nameInput, jobInput, userId, profileAvatar } from "../index.js";
+import { profileName, profileProfession, nameInput, jobInput, userId, profileAvatar } from "./index.js";
 import { createCard, addCard } from './card.js';
 import { changeDataUser, addNewCard, changeAvatar } from './api.js'
 
