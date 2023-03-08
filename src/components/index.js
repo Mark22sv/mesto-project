@@ -89,13 +89,13 @@ enableValidation(configValidstion);
 
 //Получение карточек //Получение данных пользователя
 Promise.all([getCards(), getDataUser()])
-.then((result) => {
-  profileName.textContent = result[1].name;
-  profileProfession.textContent = result[1].about;
-  profileAvatar.src = result[1].avatar;
-  userId = result[1]._id;
-  for (let i = result[0].length - 1; i >= 0; i--){
-    const newCard = createCard(result[0][i].name, result[0][i].link, result[0][i].owner._id, result[0][i].likes, result[0][i]._id);
+.then(([ cardData, userData ]) => {
+  profileName.textContent = userData.name;
+  profileProfession.textContent = userData.about;
+  profileAvatar.src = userData.avatar;
+  userId = userData._id;
+  for (let i = cardData.length - 1; i >= 0; i--){
+    const newCard = createCard(cardData[i].name, cardData[i].link, cardData[i].owner._id, cardData[i].likes, cardData[i]._id);
     addCard(newCard);
   };
 })
