@@ -1,0 +1,33 @@
+@mixin font-face-rules($name, $weight) {
+  //При некорректном значении $weight будет подключен Regular-шрифт
+  $weight-txt: 'Regular';
+  @if $weight == 900 {
+    $weight-txt: 'Black';
+  } @else if $weight == 500 {
+    $weight-txt: 'Medium';
+  } @else {
+    $weight: 400;
+  }
+
+  @font-face {
+    font-family: '#{$name}';
+    src: local('#{$name}'),
+    url('../fonts/#{$name}-#{$weight-txt}.woff2') format('woff2'),
+    url('../fonts/#{$name}-#{$weight-txt}.woff') format('woff');
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+@mixin screen940 {
+  @media screen and (max-width: 940px) {
+    @content;
+  }
+}
+
+@mixin screen720 {
+  @media screen and (max-width: 720px) {
+    @content;
+  }
+}

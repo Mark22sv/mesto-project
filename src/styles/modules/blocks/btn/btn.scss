@@ -1,0 +1,27 @@
+.btn {
+  appearance: none;
+  color: inherit;
+  background: none;
+  box-sizing: border-box;
+
+  border: 2px solid {
+    radius: 2px;
+  }
+
+  padding: 0;
+  line-height: 1;
+
+  font: {
+    size: inherit;
+    weight: inherit;
+  }
+
+  text-decoration: none;
+  white-space: normal;
+  cursor: pointer;
+  transition: opacity .1s linear;
+
+  &:hover {
+    opacity: .6;
+  }
+}

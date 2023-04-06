@@ -1,0 +1,12 @@
+.btn_type_like {
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  width: 22px;
+  border: none;
+  background: url(../assets/btn_type_like.svg) center / 22px 19px no-repeat;
+  font-size: 0;
+
+  &:hover {
+    opacity: .5;
+  }
+}

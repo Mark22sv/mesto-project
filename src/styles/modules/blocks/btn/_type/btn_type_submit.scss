@@ -1,0 +1,26 @@
+.btn_type_submit {
+  margin-top: auto;
+  height: 50px;
+  line-height: 22px;
+
+  font: {
+    size: 18px;
+    weight: 400;
+  }
+
+  color: #fff;
+  background: #000;
+  border: none;
+
+  &:hover {
+    opacity: .8;
+  }
+
+  @include screen720 {
+    height: 46px;
+    margin-top: 30px;
+    line-height: 17px;
+    font-size: 14px;
+  }
+
+}
