@@ -27,7 +27,7 @@ const profile = document.querySelector('.profile'),
 
   cardsContainer = '.cards';
 
-  
+
 
 //  >>> Профиль пользователя
 
@@ -42,11 +42,11 @@ const api = new Api(apiParam);
 const handLikeClick = (idCard, btnLike, likeRate) => {
   if (btnLike.classList.contains('btn_liked')) {
     api.delLike(idCard)
-    .then(res => {
-      likeRate.textContent = res.likes.length;
-      btnLike.classList.toggle('btn_liked');
-    })
-    .catch(err => console.log(`Ошибка.....: ${err}`));
+      .then(res => {
+        likeRate.textContent = res.likes.length;
+        btnLike.classList.toggle('btn_liked');
+      })
+      .catch(err => console.log(`Ошибка.....: ${err}`));
   } else {
     api.setLike(idCard)
       .then(res => {
@@ -59,17 +59,18 @@ const handLikeClick = (idCard, btnLike, likeRate) => {
 
 //Функция удаления карточки
 const popupWithConfirmDeletion = new PopupWithConfirmDeletion((popupSelector.popupConfirm),
-  {submit: (idCard, cardToDelete) => {
-    api.delCard(idCard)
-    .then(res => console.log(res.message))
-    .then(() => {
-      cardToDelete.remove()
-      popupWithConfirmDeletion.close();
+  {
+    submit: (idCard, cardToDelete) => {
+      api.delCard(idCard)
+        .then(res => console.log(res.message))
+        .then(() => {
+          cardToDelete.remove()
+          popupWithConfirmDeletion.close();
 
-    })
-    .catch(err => console.log(`Ошибка.....: ${err}`));
-  }
-});
+        })
+        .catch(err => console.log(`Ошибка.....: ${err}`));
+    }
+  });
 
 
 //Функция открытия Popup с изображением
@@ -84,26 +85,28 @@ Promise.all([
   api.getCards()
 ])
   .then(([dataUser, dataCards]) => {
-// Получение данных о пользователе с сервера
+    // Получение данных о пользователе с сервера
     infoUser.setUserInfo(dataUser);
     idUser = dataUser._id;
-// Отрисовка карточек с сервера
+    // Отрисовка карточек с сервера
     const cardsList = new Section({
       data: dataCards,
       renderer: (item) => {
         const cardElement = new Card(
           item,
           handLikeClick,
-          {popupWithConfirmDeletion: (idCard, cardToDelete) => {
-            popupWithConfirmDeletion.open(idCard, cardToDelete)
-          }},
+          {
+            popupWithConfirmDeletion: (idCard, cardToDelete) => {
+              popupWithConfirmDeletion.open(idCard, cardToDelete)
+            }
+          },
           openPopupImage,
           '#card-template');
         const newCard = cardElement.generate();
 
         cardsList.addItemEnd(newCard);
-        },
       },
+    },
       cardsContainer
     );
 
@@ -115,15 +118,15 @@ Promise.all([
 // Сабмит-сохранение на редактирование профиля.
 const profilePopup = new PopupWithForm((popupSelector.popupEditProfile), {
   submit: (data) => {
-      profilePopup.setSubmitButtonText('Сохранение...');
-      api.setUserInfo(data)
+    profilePopup.setSubmitButtonText('Сохранение...');
+    api.setUserInfo(data)
       .then((data) => {
-          infoUser.setUserInfo(data);
-          profilePopup.close();
+        infoUser.setUserInfo(data);
+        profilePopup.close();
       })
-      .catch(err => {console.log(err)})
+      .catch(err => { console.log(err) })
       .finally(() => {
-          profilePopup.setSubmitButtonText('Сохранить');
+        profilePopup.setSubmitButtonText('Сохранить');
       });
   }
 });
@@ -141,14 +144,14 @@ const avatarPopup = new PopupWithForm((popupSelector.popupEditAvatar), {
   submit: (data) => {
     avatarPopup.setSubmitButtonText('Сохранение...');
     api.setUserAvatar(data)
-    .then((data) => {
-      infoUser.setUserInfo(data);
-      avatarPopup.close();
-    })
-    .catch(err => {console.log(err)})
-    .finally(() => {
-      avatarPopup.setSubmitButtonText('Сохранить');
-    });
+      .then((data) => {
+        infoUser.setUserInfo(data);
+        avatarPopup.close();
+      })
+      .catch(err => { console.log(err) })
+      .finally(() => {
+        avatarPopup.setSubmitButtonText('Сохранить');
+      });
   }
 });
 avatarPopup.setEventListeners();
@@ -166,37 +169,39 @@ profileAvatar.addEventListener('click', () => {
 //  >>> Карточки
 
 // Сабмит-сохранение на добавление новой карточки.
-const cardSavePopup = new PopupWithForm ((popupSelector.popupAddCard), {
+const cardSavePopup = new PopupWithForm((popupSelector.popupAddCard), {
   submit: (data) => {
     cardSavePopup.setSubmitButtonText('Сохранение...');
     api.setNewCard(data)
-    .then(res => {
-      const cardElement = new Card(
-        res,
-        handLikeClick,
-        {popupWithConfirmDeletion: (idCard, cardToDelete) => {
-          popupWithConfirmDeletion.open(idCard, cardToDelete)
-        }},
-        openPopupImage,
-        '#card-template');
-      const newCard = cardElement.generate();
-      const cardRenderer = new Section({
-        data: []
-      }, cardsContainer);
+      .then(res => {
+        const cardElement = new Card(
+          res,
+          handLikeClick,
+          {
+            popupWithConfirmDeletion: (idCard, cardToDelete) => {
+              popupWithConfirmDeletion.open(idCard, cardToDelete)
+            }
+          },
+          openPopupImage,
+          '#card-template');
+        const newCard = cardElement.generate();
+        const cardRenderer = new Section({
+          data: []
+        }, cardsContainer);
 
-      cardRenderer.addItemStart(newCard);
-      cardSavePopup.close();
-    })
-    .catch(err => {console.log(err)})
-    .finally(() => {
-      cardSavePopup.setSubmitButtonText('Создать');
-    });
+        cardRenderer.addItemStart(newCard);
+        cardSavePopup.close();
+      })
+      .catch(err => { console.log(err) })
+      .finally(() => {
+        cardSavePopup.setSubmitButtonText('Создать');
+      });
   }
 });
 cardSavePopup.setEventListeners();
 
 // Показывает попап добавления новой карточки.
-profileBtnAddCard.addEventListener('click',() => {
+profileBtnAddCard.addEventListener('click', () => {
   cardSavePopup.openPopup();
   cardName.focus();
 });
@@ -209,4 +214,4 @@ formUserValidation.enableValidation();
 const formAvatarValidation = new FormValidator(configValidastion, formsForValidation.formAvatar);
 formAvatarValidation.enableValidation();
 
-export {idUser};
+export { idUser };

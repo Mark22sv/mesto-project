@@ -1,14 +1,14 @@
-import {idUser} from './index.js';
+import { idUser } from './index.js';
 
 export default class Card {
-  constructor(cardData, handLikeClick, {popupWithConfirmDeletion}, openPopupImage, selector){
+  constructor(cardData, handLikeClick, { popupWithConfirmDeletion }, openPopupImage, selector) {
     this._selector = selector;
     this._cardImg = cardData.link;
     this._cardTitle = cardData.name;
     this._likeRate = cardData.likes.length;
     this._likes = cardData.likes;
     this._idOwner = cardData.owner._id;
-    this._idCard  = cardData._id;
+    this._idCard = cardData._id;
     this._handLikeClick = handLikeClick;
     this._popupWithConfirmDeletion = popupWithConfirmDeletion;
     this._openPopupImage = openPopupImage;
@@ -32,13 +32,13 @@ export default class Card {
 
   _getElement() {
     const cardElement = document
-        .querySelector(this._selector)
-        .content
-        .querySelector('.card')
-        .cloneNode(true);
+      .querySelector(this._selector)
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
 
-      return cardElement;
-    }
+    return cardElement;
+  }
 
   _setEventListeners() {
     this._element.querySelector('.card__img').addEventListener('click', () => {
@@ -47,7 +47,7 @@ export default class Card {
 
     this._element.querySelector('.btn_type_like').addEventListener('click', () => {
       const btnLike = this._element.querySelector('.btn_type_like'),
-            likeRate = this._element.querySelector('.card__like-rate');
+        likeRate = this._element.querySelector('.card__like-rate');
       this._handLikeClick(this._idCard, btnLike, likeRate);
 
     });

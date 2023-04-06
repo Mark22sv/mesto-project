@@ -1,5 +1,5 @@
-export default class Popup{
-  constructor(popupSelector){
+export default class Popup {
+  constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._closeButton = this._popup.querySelector('.btn_type_close')
   }
@@ -21,7 +21,7 @@ export default class Popup{
   _setOpenEventListeners() {
     document.addEventListener('keydown', this._keyHandler);
     this._popup.addEventListener('mousedown', this._clickHandler);
-}
+  }
 
   // keydown-обработчик
   _keyHandler = (evt) => {

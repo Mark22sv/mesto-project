@@ -26,21 +26,23 @@ const configValidastion = {
   errorClass: 'form__input-error_active'
 };
 
-
+//API параметры
 const apiParam = {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-19/',
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-20/',
   headers: {
-    authorization: '0cb3843b-7aeb-441f-9f42-4e44f9d13dd5',
+    authorization: '75975255-f606-4238-8a2f-4f7678e008f9',
     'Content-Type': 'application/json'
   }
 };
 
+//Селекторы форм для валидации
 const formsForValidation = {
   formCard: "#form-card",
   formUser: "#form-user",
   formAvatar: "#form-avatar"
 };
 
+//Селекторы popup
 const popupSelector = {
   popupConfirm: '#confirm-popup',
   popupPicture: '#picture-popup',
@@ -49,10 +51,11 @@ const popupSelector = {
   popupAddCard: '#card-add-popup'
 };
 
+//Селекторы профиля
 const profileSelectors = {
   nameSelector: ".profile__name",
   aboutSelector: ".profile__about",
   avatarSelector: ".profile__avatar"
 };
 
-export {configValidastion, formsForValidation, apiParam, popupSelector, profileSelectors};
+export { configValidastion, formsForValidation, apiParam, popupSelector, profileSelectors };
