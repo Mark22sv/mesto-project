@@ -1,5 +1,5 @@
 import '../styles/index.css';
-import { apiParam, configValidastion, formsForValidation, popupSelector, profileSelectors } from './variables.js';
+import { apiParam, configValidation, popupSelector, profileSelectors } from './variables.js';
 import Card from './card';
 import Section from './Section';
 import UserInfo from './UserInfo';
@@ -207,11 +207,16 @@ profileBtnAddCard.addEventListener('click', () => {
 });
 
 //  валидатор.
-const formCardValidation = new FormValidator(configValidastion, formsForValidation.formCard);
-formCardValidation.enableValidation();
-const formUserValidation = new FormValidator(configValidastion, formsForValidation.formUser);
-formUserValidation.enableValidation();
-const formAvatarValidation = new FormValidator(configValidastion, formsForValidation.formAvatar);
-formAvatarValidation.enableValidation();
+const formValidators = {}
+const enableValidation = (сonfig) => {
+  const formList = Array.from(document.querySelectorAll(сonfig.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(сonfig, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+enableValidation(configValidation);
 
 export { idUser };

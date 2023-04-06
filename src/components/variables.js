@@ -17,7 +17,7 @@ const cardsData = [
 */
 
 // параметры валидации
-const configValidastion = {
+const configValidation = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.btn_type_submit',
@@ -35,12 +35,6 @@ const apiParam = {
   }
 };
 
-//Селекторы форм для валидации
-const formsForValidation = {
-  formCard: "#form-card",
-  formUser: "#form-user",
-  formAvatar: "#form-avatar"
-};
 
 //Селекторы popup
 const popupSelector = {
@@ -58,4 +52,4 @@ const profileSelectors = {
   avatarSelector: ".profile__avatar"
 };
 
-export { configValidastion, formsForValidation, apiParam, popupSelector, profileSelectors };
+export { configValidation, apiParam, popupSelector, profileSelectors };
