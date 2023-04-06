@@ -1,118 +1,204 @@
-const config = {
-  url: 'https://nomoreparties.co/v1/plus-cohort-20/',
-  headers: '75975255-f606-4238-8a2f-4f7678e008f9',
-}
+export default class Api {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl,
+    this._headers = headers
+  }
 
-const endpoint = {
-  cards: 'cards/',
-  cardLike: 'cards/likes/',
-  users: 'users/me',
-  avatar: 'users/me/avatar/'
-}
+// Получает от сервера данные карточек.
+  getCards() {
+    return fetch(`${this._baseUrl}cards/`, {
+      method: "GET",
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
 
+  // Получает от сервера данные пользователя.
+  getUser() {
+    return fetch(`${this._baseUrl}users/me/`, {
+      method: "GET",
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
 
-function onResponse (res) {
-  return res.ok
+  // Отправляет на сервер информацию о пользователе (аватар отправляется отдельно).
+  setUserInfo(formInfo) {
+    return fetch(`${this._baseUrl}users/me/`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(formInfo)
+    })
+      .then(this._checksAnswer);
+};
+
+  // Отправляет на сервер аватар пользователя (инфо отправляется отдельно).
+  setUserAvatar(formInfo) {
+    return fetch(`${this._baseUrl}users/me/avatar/`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(formInfo)
+    })
+      .then(this._checksAnswer);
+};
+
+  // Отправляет на сервер новую карточку.
+  setNewCard(formInfo) {
+    return fetch(`${this._baseUrl}cards/`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(formInfo)
+    })
+      .then(this._checksAnswer);
+};
+
+  // Удаляет с сервера карточку с принятым id.
+  delCard(idCard) {
+    return fetch(`${this._baseUrl}cards/${idCard}/`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+};
+
+  // Ставит лайк карточке с принятым id.
+  setLike(idCard) {
+    return fetch(`${this._baseUrl}cards/likes/${idCard}/`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
+
+  // Снимает лайк карточке с принятым id.
+  delLike(idCard) {
+    return fetch(`${this._baseUrl}/cards/likes/${idCard}/`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
+
+  _checksAnswer(res) {
+    return res.ok
       ? res.json()
-      : Promise.reject('Ошибка на стороне сервера');
+      : Promise.reject(`Ошибка: ${res.status}`);
+  };
 }
 
-function getCards() {
-  return fetch(`${config.url + endpoint.cards}`,
-  { method: "GET",
-    headers: {
-      authorization: config.headers
-    }
+
+
+
+
+
+
+const checksAnswer = res => {
+  return res.ok
+    ? res.json()
+    : Promise.reject(`Ошибка: ${res.status}`);
+};
+
+// Получает от сервера данные карточек.
+/**
+ * Структура массива карточек, получаемого от сервера:
+ * [
+ *   {
+ *     "likes": [], // массив пользователей, лайкнувших карточку
+ *     "_id": "5d1f0611d321eb4bdcd707dd",
+ *     "name": "Байкал",
+ *     "link": "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+ *     "owner": {
+ *       "name": "Jacques Cousteau",
+ *       "about": "Sailor, researcher",
+ *       "avatar": "https://pictures.s3.yandex.net/frontend-developer/ava.jpg",
+ *       "_id": "ef5f7423f7f5e22bef4ad607",
+ *       "cohort": "local"
+ *     },
+ *     "createdAt": "2019-07-05T08:10:57.741Z"
+ *   },
+ *   ... и т.д.
+ */
+const getCards = param => {
+  return fetch(`${param.baseUrl}cards/`, {
+    headers: param.headers
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
-function addNewCard(name, link) {
-  return fetch(`${config.url + endpoint.cards}`,
-  { method: "POST",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: name,
-      link: link,
-      })
+// Получает от сервера данные пользователя.
+/**
+ * Структура объекта пользователя, получаемого от сервера:
+ * {
+ *   "name": "Jacques Cousteau",
+ *   "about": "Sailor, researcher",
+ *   "avatar": "https://pictures.s3.yandex.net/frontend-developer/ava.jpg",
+ *   "_id": "e20537ed11237f86bbb20ccb",
+ *   "cohort": "cohort0"
+ * }
+ */
+const getUser = param => {
+  return fetch(`${param.baseUrl}users/me/`, {
+    headers: param.headers
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
-function removeCard(cadrId) {
-  return fetch(`${config.url + endpoint.cards + cadrId}`,
-  { method: "DELETE",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    }
+// Отправляет на сервер информацию о пользователе (аватар отправляется отдельно).
+const setUserInfo = (param, name, about) => {
+  return fetch(`${param.baseUrl}users/me/`, {
+    method: 'PATCH',
+    headers: param.headers,
+    body: JSON.stringify({name, about})
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
-function addLikeCard(cadrId) {
-  return fetch(`${config.url + endpoint.cardLike + cadrId}`,
-  { method: "PUT",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    }
+// Отправляет на сервер аватар пользователя (инфо отправляется отдельно).
+const setUserAvatar = (param, avatar) => {
+  return fetch(`${param.baseUrl}users/me/avatar/`, {
+    method: 'PATCH',
+    headers: param.headers,
+    body: JSON.stringify({avatar})
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
-function removeLikeCard(cadrId) {
-  return fetch(`${config.url + endpoint.cardLike + cadrId}`,
-  { method: "DELETE",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    }
+// Отправляет на сервер новую карточку.
+const setNewCard = (param, name, link) => {
+  return fetch(`${param.baseUrl}cards/`, {
+    method: 'POST',
+    headers: param.headers,
+    body: JSON.stringify({name, link})
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
-function getDataUser() {
-  return fetch(`${config.url + endpoint.users}`,
-  { method: "GET",
-    headers: {
-      authorization: config.headers
-    }
+// Удаляет с сервера карточку с принятым id.
+const delCard = (param, idCard) => {
+  return fetch(`${param.baseUrl}cards/${idCard}/`, {
+    method: 'DELETE',
+    headers: param.headers
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
-function  changeDataUser(name, about) {
-  return fetch(`${config.url + endpoint.users}`,
-  { method: 'PATCH',
-    headers: {
-    authorization: config.headers,
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-    name: name,
-    about: about
-    })
+// Ставит лайк карточке с принятым id.
+const setLike = (param, idCard) => {
+  return fetch(`${param.baseUrl}cards/likes/${idCard}/`, {
+    method: 'PUT',
+    headers: param.headers
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
-function changeAvatar(link) {
-  return fetch(`${config.url + endpoint.avatar}`,
-  { method: 'PATCH',
-    headers: {
-    authorization: config.headers,
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-    avatar: link
-    })
+// Снимает лайк карточке с принятым id.
+const delLike = (param, idCard) => {
+  return fetch(`${param.baseUrl}/cards/likes/${idCard}/`, {
+    method: 'DELETE',
+    headers: param.headers
   })
-  .then(onResponse)
-}
+    .then(res => checksAnswer(res));
+};
 
 
-export {getCards, getDataUser, changeDataUser, addNewCard, removeCard, addLikeCard, removeLikeCard, changeAvatar}
+export {getCards, getUser, setUserInfo, setNewCard, delCard, setLike, delLike, setUserAvatar};

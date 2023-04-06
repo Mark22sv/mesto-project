@@ -1,0 +1,9 @@
+.card {
+  display: grid;
+  grid: auto 80px / 1fr min-content;
+  align-items: center;
+  border-radius: 10px;
+  color: #000;
+  background: #fff;
+  position: relative;
+}

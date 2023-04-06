@@ -1,0 +1,12 @@
+.header__logo {
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 143px;
+  height: 33px;
+
+  @include screen940 {
+    width: 104px;
+    height: 24px;
+    margin-left: 27px;
+  }
+}
