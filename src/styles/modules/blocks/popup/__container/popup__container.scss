@@ -1,9 +1,0 @@
-.popup__container {
-  position: relative;
-  margin: auto;
-  width: 430px;
-
-  @include screen720 {
-    width: 282px;
-  }
-}

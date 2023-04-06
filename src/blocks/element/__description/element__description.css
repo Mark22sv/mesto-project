@@ -1,0 +1,9 @@
+.element__description {
+  width: 246px;
+  display: grid;
+  grid-template-areas:
+  'title vector'
+  'title likes';
+  justify-content: space-between;
+  align-items: center;
+}

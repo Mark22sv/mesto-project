@@ -1,9 +1,0 @@
-.header {
-  min-height: 74px;
-  box-sizing: border-box;
-  border-bottom: 1px solid rgba(84, 84, 84, .7);
-
-  @include screen940 {
-    min-height: 56px;
-  }
-}

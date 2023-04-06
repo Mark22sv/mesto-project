@@ -1,35 +1,45 @@
+# http://editorconfig.org
+
+
+# A special property that should be specified at the top of the file outside of
+
+# any sections. Set to true to stop .editor config file search on current file
+
 root = true
 
 [*]
-charset = utf-8
-end_of_line = lf
-indent_size = 2
+# Indentation style
+
+# Possible values - tab, space
+
 indent_style = space
-insert_final_newline = true
-max_line_length = 120
+
+# Indentation size in single-spaced characters
+
+# Possible values - an integer, tab
+
+indent_size = 2
+
+# Line ending file format
+
+# Possible values - lf, crlf, cr
+
+end_of_line = lf
+
+# File character encoding
+
+# Possible values - latin1, utf-8, utf-16be, utf-16le
+
+charset = utf-8
+
+# Denotes whether to trim whitespace at the end of lines
+
+# Possible values - true, false
+
 trim_trailing_whitespace = true
 
-[{*.markdown,*.md}]
-trim_trailing_whitespace = false
+# Denotes whether file should end with a newline
 
-[{*.htm,*.html,*.ng,*.sht,*.shtm,*.shtml}]
-ij_html_enforce_quotes = true
+# Possible values - true, false
 
-[*.css]
-ij_css_block_comment_add_space = true
-ij_css_enforce_quotes_on_format = true
-ij_css_hex_color_lower_case = true
-ij_css_hex_color_short_format = true
-ij_css_use_double_quotes = false
-
-[*.scss]
-ij_scss_block_comment_add_space = true
-ij_scss_enforce_quotes_on_format = true
-ij_scss_hex_color_lower_case = true
-ij_scss_hex_color_short_format = true
-ij_scss_line_comment_add_space = true
-ij_scss_use_double_quotes = false
-
-[{*.cjs,*.js}]
-ij_javascript_force_quote_style = true
-ij_javascript_use_double_quotes = false
+insert_final_newline = true
