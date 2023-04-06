@@ -35,5 +35,24 @@ const apiParam = {
   }
 };
 
+const formsForValidation = {
+  formCard: "#form-card",
+  formUser: "#form-user",
+  formAvatar: "#form-avatar"
+};
 
-export {configValidastion, apiParam};
+const popupSelector = {
+  popupConfirm: '#confirm-popup',
+  popupPicture: '#picture-popup',
+  popupEditProfile: '#profile-edit-popup',
+  popupEditAvatar: '#avatar-edit-popup',
+  popupAddCard: '#card-add-popup'
+};
+
+const profileSelectors = {
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__about",
+  avatarSelector: ".profile__avatar"
+};
+
+export {configValidastion, formsForValidation, apiParam, popupSelector, profileSelectors};

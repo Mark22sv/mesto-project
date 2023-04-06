@@ -1,5 +1,5 @@
 import '../styles/index.css';
-import { apiParam, configValidastion } from './variables.js';
+import { apiParam, configValidastion, formsForValidation, popupSelector, profileSelectors } from './variables.js';
 import Card from './card';
 import Section from './Section';
 import UserInfo from './UserInfo';
@@ -8,7 +8,7 @@ import PopupWithImage from './PopupWithImage';
 import PopupWithForm from './PopupWithForm';
 import PopupWithConfirmDeletion from './PopupWithConfirmDeletion';
 import FormValidator from './FormValidator';
-import enableValidation from './validate.js';
+
 
 const profile = document.querySelector('.profile'),
   profileAvatar = profile.querySelector('.profile__avatar'),
@@ -23,16 +23,11 @@ const profile = document.querySelector('.profile'),
   avatarLink = avatarEditPopup.querySelector('#avatar-link'),
 
   cardAddPopup = document.querySelector('#card-add-popup'),
-
   cardName = cardAddPopup.querySelector('#card-name'),
 
   cardsContainer = '.cards';
 
-  const profileSelectors = {
-    nameSelector: ".profile__name",
-    aboutSelector: ".profile__about",
-    avatarSelector: ".profile__avatar"
-  };
+  
 
 //  >>> Профиль пользователя
 
@@ -63,7 +58,7 @@ const handLikeClick = (idCard, btnLike, likeRate) => {
 }
 
 //Функция удаления карточки
-const popupWithConfirmDeletion = new PopupWithConfirmDeletion(('#confirm-popup'),
+const popupWithConfirmDeletion = new PopupWithConfirmDeletion((popupSelector.popupConfirm),
   {submit: (idCard, cardToDelete) => {
     api.delCard(idCard)
     .then(res => console.log(res.message))
@@ -78,7 +73,7 @@ const popupWithConfirmDeletion = new PopupWithConfirmDeletion(('#confirm-popup')
 
 
 //Функция открытия Popup с изображением
-const popupWithImage = new PopupWithImage('#picture-popup');
+const popupWithImage = new PopupWithImage(popupSelector.popupPicture);
 const openPopupImage = (link, name) => {
   popupWithImage.open(link, name);
 }
@@ -118,7 +113,7 @@ Promise.all([
 
 
 // Сабмит-сохранение на редактирование профиля.
-const profilePopup = new PopupWithForm(('#profile-edit-popup'), {
+const profilePopup = new PopupWithForm((popupSelector.popupEditProfile), {
   submit: (data) => {
       profilePopup.setSubmitButtonText('Сохранение...');
       api.setUserInfo(data)
@@ -142,7 +137,7 @@ profileBtnEdit.addEventListener('click', () => {
 });
 
 // Сабмит-сохранение на редактирование аватара.
-const avatarPopup = new PopupWithForm(('#avatar-edit-popup'), {
+const avatarPopup = new PopupWithForm((popupSelector.popupEditAvatar), {
   submit: (data) => {
     avatarPopup.setSubmitButtonText('Сохранение...');
     api.setUserAvatar(data)
@@ -171,7 +166,7 @@ profileAvatar.addEventListener('click', () => {
 //  >>> Карточки
 
 // Сабмит-сохранение на добавление новой карточки.
-const cardSavePopup = new PopupWithForm (('#card-add-popup'), {
+const cardSavePopup = new PopupWithForm ((popupSelector.popupAddCard), {
   submit: (data) => {
     cardSavePopup.setSubmitButtonText('Сохранение...');
     api.setNewCard(data)
@@ -206,12 +201,12 @@ profileBtnAddCard.addEventListener('click',() => {
   cardName.focus();
 });
 
-
-
-
 //  валидатор.
-const formCardValidastion = new FormValidator(configValidastion, "#form-card");
-formCardValidastion.enableValidation();
-
+const formCardValidation = new FormValidator(configValidastion, formsForValidation.formCard);
+formCardValidation.enableValidation();
+const formUserValidation = new FormValidator(configValidastion, formsForValidation.formUser);
+formUserValidation.enableValidation();
+const formAvatarValidation = new FormValidator(configValidastion, formsForValidation.formAvatar);
+formAvatarValidation.enableValidation();
 
 export {idUser};
