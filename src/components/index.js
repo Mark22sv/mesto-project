@@ -217,6 +217,7 @@ const enableValidation = (сonfig) => {
     validator.enableValidation();
   });
 };
+
 enableValidation(configValidation);
 
 export { idUser };

@@ -35,7 +35,6 @@ const apiParam = {
   }
 };
 
-
 //Селекторы popup
 const popupSelector = {
   popupConfirm: '#confirm-popup',
