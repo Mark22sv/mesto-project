@@ -27,8 +27,8 @@ const profile = document.querySelector('.profile'),
 
   cardsContainer = '.cards';
 
-  let idUser;
-  let cardsList;
+let idUser;
+let cardsList;
 
 
 //  >>> Профиль пользователя
@@ -38,25 +38,38 @@ const infoUser = new UserInfo(profileSelectors);
 const api = new Api(apiParam);
 
 
-//Функция добавление/удаление лайка
 
-const handLikeClick = (idCard, btnLike, likeRate, method) => {
-  if (method === "del") {
-    api.delLike(idCard)
-      .then(res => {
-        likeRate.textContent = res.likes.length;
-        btnLike.classList.toggle('btn_liked');
-      })
-      .catch(err => console.log(`Ошибка.....: ${err}`));
-  } else {
-    api.setLike(idCard)
-      .then(res => {
-        likeRate.textContent = res.likes.length;
-        btnLike.classList.toggle('btn_liked');
-      })
-      .catch(err => console.log(`Ошибка.....: ${err}`));
-  }
+//Функция создания карточки
+const createCard = (item) => {
+  const cardElement = new Card(
+    item,
+    {
+      handAddLikeClick: (idCard) => {
+        api.setLike(idCard)
+          .then(res => cardElement.changeLike(res))
+          .catch(err => console.log(`Ошибка.....: ${err}`));
+      }
+    },
+    {
+      handDelLikeClick: (idCard) => {
+        api.delLike(idCard)
+          .then(res => cardElement.changeLike(res))
+          .catch(err => console.log(`Ошибка.....: ${err}`));
+      }
+    },
+    {
+      popupWithConfirmDeletion: (idCard, cardToDelete) => {
+        popupWithConfirmDeletion.open(idCard, cardToDelete)
+      }
+    },
+    openPopupImage,
+    '#card-template',
+    idUser);
+  const newCard = cardElement.generate();
+  return newCard;
 }
+
+
 
 //Функция удаления карточки
 const popupWithConfirmDeletion = new PopupWithConfirmDeletion((popupSelector.popupConfirm),
@@ -79,21 +92,6 @@ const openPopupImage = (link, name) => {
   popupWithImage.open(link, name);
 }
 
-//Функция создания карточки
-const createCard = (item) => {
-  const cardElement = new Card(
-    item,
-    handLikeClick,
-    {
-      popupWithConfirmDeletion: (idCard, cardToDelete) => {
-        popupWithConfirmDeletion.open(idCard, cardToDelete)
-      }
-    },
-    openPopupImage,
-    '#card-template');
-  const newCard = cardElement.generate();
-  return newCard;
-}
 
 
 
@@ -213,4 +211,4 @@ profileBtnEdit.addEventListener('click', () => {
 });
 
 
-export { idUser };
+

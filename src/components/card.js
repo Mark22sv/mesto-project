@@ -1,7 +1,5 @@
-import { idUser } from './index.js';
-
 export default class Card {
-  constructor(cardData, handLikeClick, { popupWithConfirmDeletion }, openPopupImage, selector) {
+  constructor(cardData, { handAddLikeClick }, { handDelLikeClick }, { popupWithConfirmDeletion }, openPopupImage, selector, idUser) {
     this._selector = selector;
     this._cardImg = cardData.link;
     this._cardTitle = cardData.name;
@@ -9,9 +7,11 @@ export default class Card {
     this._likes = cardData.likes;
     this._idOwner = cardData.owner._id;
     this._idCard = cardData._id;
-    this._handLikeClick = handLikeClick;
+    this._handAddLikeClick = handAddLikeClick;
+    this._handDelLikeClick = handDelLikeClick;
     this._popupWithConfirmDeletion = popupWithConfirmDeletion;
     this._openPopupImage = openPopupImage;
+    this._idUser = idUser;
   }
 
   generate() {
@@ -29,7 +29,7 @@ export default class Card {
     this._elementCardTitle.textContent = this._cardTitle;
     this._elementCardLikeRate.textContent = this._likeRate;
 
-    if (-1 !== this._likes.findIndex(element => element._id === idUser)) {
+    if (-1 !== this._likes.findIndex(element => element._id === this._idUser)) {
       this._elementBtnLikeCard.classList.add('btn_liked');
     };
 
@@ -46,12 +46,17 @@ export default class Card {
     return cardElement;
   }
 
-  _changeLike = (element) => {
+  _hasLike = (element) => {
     if (element.classList.contains('btn_liked')) {
-      this._handLikeClick(this._idCard, this._elementBtnLikeCard, this._elementCardLikeRate, "del");
+      this._handDelLikeClick(this._idCard);
     } else {
-      this._handLikeClick(this._idCard, this._elementBtnLikeCard, this._elementCardLikeRate);
+      this._handAddLikeClick(this._idCard);
     }
+  }
+
+  changeLike = (res) => {
+    this._elementCardLikeRate.textContent = res.likes.length;
+    this._elementBtnLikeCard.classList.toggle('btn_liked');
   }
 
   _setEventListeners() {
@@ -60,10 +65,10 @@ export default class Card {
     });
 
     this._elementBtnLikeCard.addEventListener('click', (evt) => {
-      this._changeLike(evt.target);
+      this._hasLike(evt.target);
     });
 
-    if (this._idOwner === idUser) {
+    if (this._idOwner === this._idUser) {
       this._elementBtnDelCard.addEventListener('click', () => {
         this._popupWithConfirmDeletion(this._idCard, this._element);
       });
