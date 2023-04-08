@@ -35,10 +35,8 @@ export default class PopupWithForm extends Popup {
   close = () => {
     super.closePopup();
     this._form.reset();
-    //   this._inputList.forEach((input) => {
-    //       this._deleteErrors(input);
-    //   })
   }
+  
   // Вызов функции изменения текста
   setSubmitButtonText(content) {
     this._submitButton.textContent = content;

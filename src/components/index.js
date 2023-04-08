@@ -1,6 +1,6 @@
 import '../styles/index.css';
 import { apiParam, configValidation, popupSelector, profileSelectors } from './variables.js';
-import Card from './card';
+import Card from './Card';
 import Section from './Section';
 import UserInfo from './UserInfo';
 import Api from './api';
@@ -27,20 +27,21 @@ const profile = document.querySelector('.profile'),
 
   cardsContainer = '.cards';
 
+  let idUser;
+  let cardsList;
 
 
 //  >>> Профиль пользователя
 
-let idUser;
 
 const infoUser = new UserInfo(profileSelectors);
 const api = new Api(apiParam);
 
 
-
 //Функция добавление/удаление лайка
-const handLikeClick = (idCard, btnLike, likeRate) => {
-  if (btnLike.classList.contains('btn_liked')) {
+
+const handLikeClick = (idCard, btnLike, likeRate, method) => {
+  if (method === "del") {
     api.delLike(idCard)
       .then(res => {
         likeRate.textContent = res.likes.length;
@@ -72,12 +73,29 @@ const popupWithConfirmDeletion = new PopupWithConfirmDeletion((popupSelector.pop
     }
   });
 
-
 //Функция открытия Popup с изображением
 const popupWithImage = new PopupWithImage(popupSelector.popupPicture);
 const openPopupImage = (link, name) => {
   popupWithImage.open(link, name);
 }
+
+//Функция создания карточки
+const createCard = (item) => {
+  const cardElement = new Card(
+    item,
+    handLikeClick,
+    {
+      popupWithConfirmDeletion: (idCard, cardToDelete) => {
+        popupWithConfirmDeletion.open(idCard, cardToDelete)
+      }
+    },
+    openPopupImage,
+    '#card-template');
+  const newCard = cardElement.generate();
+  return newCard;
+}
+
+
 
 //Отрисовка карточек и данных профиля с сервера
 Promise.all([
@@ -89,22 +107,11 @@ Promise.all([
     infoUser.setUserInfo(dataUser);
     idUser = dataUser._id;
     // Отрисовка карточек с сервера
-    const cardsList = new Section({
+    cardsList = new Section({
       data: dataCards,
       renderer: (item) => {
-        const cardElement = new Card(
-          item,
-          handLikeClick,
-          {
-            popupWithConfirmDeletion: (idCard, cardToDelete) => {
-              popupWithConfirmDeletion.open(idCard, cardToDelete)
-            }
-          },
-          openPopupImage,
-          '#card-template');
-        const newCard = cardElement.generate();
 
-        cardsList.addItemEnd(newCard);
+        cardsList.addItemEnd(createCard(item));
       },
     },
       cardsContainer
@@ -113,7 +120,6 @@ Promise.all([
     cardsList.renderItems();
   })
   .catch(err => console.log(`Ошибка.....: ${err}`));
-
 
 // Сабмит-сохранение на редактирование профиля.
 const profilePopup = new PopupWithForm((popupSelector.popupEditProfile), {
@@ -132,13 +138,6 @@ const profilePopup = new PopupWithForm((popupSelector.popupEditProfile), {
 });
 profilePopup.setEventListeners();
 
-// Показывает попап редактирования профиля.
-profileBtnEdit.addEventListener('click', () => {
-  profilePopup.openPopup();
-  profilePopup.setInputValues(infoUser.getUserInfo());
-  profileNewName.focus();
-});
-
 // Сабмит-сохранение на редактирование аватара.
 const avatarPopup = new PopupWithForm((popupSelector.popupEditAvatar), {
   submit: (data) => {
@@ -156,14 +155,6 @@ const avatarPopup = new PopupWithForm((popupSelector.popupEditAvatar), {
 });
 avatarPopup.setEventListeners();
 
-
-// Показывает попап редактирования аватара.
-profileAvatar.addEventListener('click', () => {
-  avatarPopup.openPopup();
-  avatarLink.focus();
-});
-
-
 //  <<< Профиль пользователя
 
 //  >>> Карточки
@@ -174,22 +165,7 @@ const cardSavePopup = new PopupWithForm((popupSelector.popupAddCard), {
     cardSavePopup.setSubmitButtonText('Сохранение...');
     api.setNewCard(data)
       .then(res => {
-        const cardElement = new Card(
-          res,
-          handLikeClick,
-          {
-            popupWithConfirmDeletion: (idCard, cardToDelete) => {
-              popupWithConfirmDeletion.open(idCard, cardToDelete)
-            }
-          },
-          openPopupImage,
-          '#card-template');
-        const newCard = cardElement.generate();
-        const cardRenderer = new Section({
-          data: []
-        }, cardsContainer);
-
-        cardRenderer.addItemStart(newCard);
+        cardsList.addItemStart(createCard(res));
         cardSavePopup.close();
       })
       .catch(err => { console.log(err) })
@@ -199,12 +175,6 @@ const cardSavePopup = new PopupWithForm((popupSelector.popupAddCard), {
   }
 });
 cardSavePopup.setEventListeners();
-
-// Показывает попап добавления новой карточки.
-profileBtnAddCard.addEventListener('click', () => {
-  cardSavePopup.openPopup();
-  cardName.focus();
-});
 
 //  валидатор.
 const formValidators = {}
@@ -219,5 +189,28 @@ const enableValidation = (сonfig) => {
 };
 
 enableValidation(configValidation);
+
+// Показывает попап добавления новой карточки.
+profileBtnAddCard.addEventListener('click', () => {
+  formValidators['add'].resetValidation();
+  cardSavePopup.openPopup();
+  cardName.focus();
+});
+
+// Показывает попап редактирования аватара.
+profileAvatar.addEventListener('click', () => {
+  formValidators['avatar-edit'].resetValidation();
+  avatarPopup.openPopup();
+  avatarLink.focus();
+});
+
+// Показывает попап редактирования профиля.
+profileBtnEdit.addEventListener('click', () => {
+  formValidators['profile'].resetValidation();
+  profilePopup.openPopup();
+  profilePopup.setInputValues(infoUser.getUserInfo());
+  profileNewName.focus();
+});
+
 
 export { idUser };

@@ -13,9 +13,13 @@ export default class Popup {
   // Закрывает принятый попап.
   closePopup() {
     this._popup.classList.remove('popup_opened');
+    this._removeCloseEventListener();
+  };
+
+  _removeCloseEventListener() {
     document.removeEventListener('keydown', this._keyHandler);
     this._popup.removeEventListener('mousedown', this._clickHandler);
-  };
+  }
 
   //Функция закрытия попапа по иконке
   _setOpenEventListeners() {

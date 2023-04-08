@@ -14,6 +14,16 @@ export default class FormValidator{
     this._setEventListeners();
   };
 
+  resetValidation = () => {
+    this._toggleButtonState();
+    this._inputList.forEach(inputElement => {
+      const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+      if (errorElement.classList.contains(this._errorClass)) {
+        this._hideInputError(inputElement, errorElement);
+      }
+    });
+  }
+
   _showInputError = (inputElement, errorElement, errorMessage) => {
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
