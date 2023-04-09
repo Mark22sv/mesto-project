@@ -1,118 +1,89 @@
-const config = {
-  url: 'https://nomoreparties.co/v1/plus-cohort-20/',
-  headers: '75975255-f606-4238-8a2f-4f7678e008f9',
-}
+export default class Api {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl,
+      this._headers = headers
+  }
 
-const endpoint = {
-  cards: 'cards/',
-  cardLike: 'cards/likes/',
-  users: 'users/me',
-  avatar: 'users/me/avatar/'
-}
+  // Получает от сервера данные карточек.
+  getCards() {
+    return fetch(`${this._baseUrl}cards/`, {
+      method: "GET",
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
 
+  // Получает от сервера данные пользователя.
+  getUser() {
+    return fetch(`${this._baseUrl}users/me/`, {
+      method: "GET",
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
 
-function onResponse (res) {
-  return res.ok
+  // Отправляет на сервер информацию о пользователе (аватар отправляется отдельно).
+  setUserInfo(formInfo) {
+    return fetch(`${this._baseUrl}users/me/`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(formInfo)
+    })
+      .then(this._checksAnswer);
+  };
+
+  // Отправляет на сервер аватар пользователя (инфо отправляется отдельно).
+  setUserAvatar(formInfo) {
+    return fetch(`${this._baseUrl}users/me/avatar/`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(formInfo)
+    })
+      .then(this._checksAnswer);
+  };
+
+  // Отправляет на сервер новую карточку.
+  setNewCard(formInfo) {
+    return fetch(`${this._baseUrl}cards/`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(formInfo)
+    })
+      .then(this._checksAnswer);
+  };
+
+  // Удаляет с сервера карточку с принятым id.
+  delCard(idCard) {
+    return fetch(`${this._baseUrl}cards/${idCard}/`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
+
+  // Ставит лайк карточке с принятым id.
+  setLike(idCard) {
+    return fetch(`${this._baseUrl}cards/likes/${idCard}/`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
+
+  // Снимает лайк карточке с принятым id.
+  delLike(idCard) {
+    return fetch(`${this._baseUrl}/cards/likes/${idCard}/`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(this._checksAnswer);
+  };
+
+  _checksAnswer(res) {
+    return res.ok
       ? res.json()
-      : Promise.reject('Ошибка на стороне сервера');
-}
-
-function getCards() {
-  return fetch(`${config.url + endpoint.cards}`,
-  { method: "GET",
-    headers: {
-      authorization: config.headers
-    }
-  })
-  .then(onResponse)
-}
-
-function addNewCard(name, link) {
-  return fetch(`${config.url + endpoint.cards}`,
-  { method: "POST",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: name,
-      link: link,
-      })
-  })
-  .then(onResponse)
-}
-
-function removeCard(cadrId) {
-  return fetch(`${config.url + endpoint.cards + cadrId}`,
-  { method: "DELETE",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(onResponse)
-}
-
-function addLikeCard(cadrId) {
-  return fetch(`${config.url + endpoint.cardLike + cadrId}`,
-  { method: "PUT",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(onResponse)
-}
-
-function removeLikeCard(cadrId) {
-  return fetch(`${config.url + endpoint.cardLike + cadrId}`,
-  { method: "DELETE",
-    headers: {
-      authorization: config.headers,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(onResponse)
-}
-
-function getDataUser() {
-  return fetch(`${config.url + endpoint.users}`,
-  { method: "GET",
-    headers: {
-      authorization: config.headers
-    }
-  })
-  .then(onResponse)
-}
-
-function  changeDataUser(name, about) {
-  return fetch(`${config.url + endpoint.users}`,
-  { method: 'PATCH',
-    headers: {
-    authorization: config.headers,
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-    name: name,
-    about: about
-    })
-  })
-  .then(onResponse)
-}
-
-function changeAvatar(link) {
-  return fetch(`${config.url + endpoint.avatar}`,
-  { method: 'PATCH',
-    headers: {
-    authorization: config.headers,
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-    avatar: link
-    })
-  })
-  .then(onResponse)
+      : Promise.reject(`Ошибка: ${res.status}`);
+  };
 }
 
 
-export {getCards, getDataUser, changeDataUser, addNewCard, removeCard, addLikeCard, removeLikeCard, changeAvatar}

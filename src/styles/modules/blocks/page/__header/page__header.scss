@@ -1,0 +1,7 @@
+.page__header {
+  margin: 45px var(--inner-sides) 0;
+
+  @include screen940 {
+    margin: 28px calc(var(--inner-sides) - 19px) 0;
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "mesto",
+  "name": "mesto-project",
   "version": "0.0.1",
-  "description": "**Интро**",
+  "description": "Yandex Practicum",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -9,8 +9,16 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "author": "Sergey Markovichenko",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andreyka-Praktikum/mesto-project.git"
+  },
+  "author": "AndreykA",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andreyka-Praktikum/mesto-project/issues"
+  },
+  "homepage": "https://github.com/Andreyka-Praktikum/mesto-project#readme",
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
@@ -19,6 +27,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.3",
     "cssnano": "^5.1.15",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
     "postcss-loader": "^7.0.2",
@@ -27,7 +36,6 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "core-js": "^3.28.0",
-    "gh-pages": "^5.0.0"
+    "core-js": "^3.28.0"
   }
 }

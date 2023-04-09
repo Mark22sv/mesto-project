@@ -1,2 +1,31 @@
-node_modules
-dist
+.idea/
+.vscode/
+
+dist/
+node_modules/
+
+# Sass
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+# Node
+logs/
+*.log
+npm-debug.log*
+.pnpm-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Windows
+[Dd]esktop.ini
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.lnk
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp

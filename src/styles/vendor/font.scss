@@ -1,0 +1,8 @@
+$fonts:
+  'Inter' 400,
+  'Inter' 500,
+  'Inter' 900;
+
+@each $name, $weight in $fonts {
+  @include font-face-rules($name, $weight);
+}
