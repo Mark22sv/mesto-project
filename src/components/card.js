@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(cardData, { handAddLikeClick }, { handDelLikeClick }, { popupWithConfirmDeletion }, openPopupImage, selector, idUser) {
+  constructor(cardData, { handAddLikeClick }, { handDelLikeClick }, { popupWithConfirmDeletion }, { openPopupImage }, selector, idUser) {
     this._selector = selector;
     this._cardImg = cardData.link;
     this._cardTitle = cardData.name;

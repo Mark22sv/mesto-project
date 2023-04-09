@@ -62,7 +62,11 @@ const createCard = (item) => {
         popupWithConfirmDeletion.open(idCard, cardToDelete)
       }
     },
-    openPopupImage,
+    {
+      openPopupImage: (link, name) => {
+        popupWithImage.open(link, name);
+      }
+    },
     '#card-template',
     idUser);
   const newCard = cardElement.generate();
@@ -88,12 +92,6 @@ const popupWithConfirmDeletion = new PopupWithConfirmDeletion((popupSelector.pop
 
 //Функция открытия Popup с изображением
 const popupWithImage = new PopupWithImage(popupSelector.popupPicture);
-const openPopupImage = (link, name) => {
-  popupWithImage.open(link, name);
-}
-
-
-
 
 //Отрисовка карточек и данных профиля с сервера
 Promise.all([
