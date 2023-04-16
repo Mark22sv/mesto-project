@@ -120,16 +120,11 @@ Promise.all([
 // Сабмит-сохранение на редактирование профиля.
 const profilePopup = new PopupWithForm((popupSelector.popupEditProfile), {
   submit: (data) => {
-    profilePopup.setSubmitButtonText('Сохранение...');
-    api.setUserInfo(data)
+    return api.setUserInfo(data)
       .then((data) => {
         infoUser.setUserInfo(data);
-        profilePopup.close();
       })
       .catch(err => { console.log(err) })
-      .finally(() => {
-        profilePopup.setSubmitButtonText('Сохранить');
-      });
   }
 });
 profilePopup.setEventListeners();
@@ -137,16 +132,11 @@ profilePopup.setEventListeners();
 // Сабмит-сохранение на редактирование аватара.
 const avatarPopup = new PopupWithForm((popupSelector.popupEditAvatar), {
   submit: (data) => {
-    avatarPopup.setSubmitButtonText('Сохранение...');
-    api.setUserAvatar(data)
+    return api.setUserAvatar(data)
       .then((data) => {
         infoUser.setUserInfo(data);
-        avatarPopup.close();
       })
       .catch(err => { console.log(err) })
-      .finally(() => {
-        avatarPopup.setSubmitButtonText('Сохранить');
-      });
   }
 });
 avatarPopup.setEventListeners();
@@ -158,16 +148,11 @@ avatarPopup.setEventListeners();
 // Сабмит-сохранение на добавление новой карточки.
 const cardSavePopup = new PopupWithForm((popupSelector.popupAddCard), {
   submit: (data) => {
-    cardSavePopup.setSubmitButtonText('Сохранение...');
-    api.setNewCard(data)
+   return api.setNewCard(data)
       .then(res => {
         cardsList.addItemStart(createCard(res));
-        cardSavePopup.close();
-      })
+    })
       .catch(err => { console.log(err) })
-      .finally(() => {
-        cardSavePopup.setSubmitButtonText('Создать');
-      });
   }
 });
 cardSavePopup.setEventListeners();

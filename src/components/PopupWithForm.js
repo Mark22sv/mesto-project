@@ -27,20 +27,22 @@ export default class PopupWithForm extends Popup {
     //super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      const initialText = this._submitButton.textContent;
+      this._submitButton.textContent = "Сохранение ...";
       // передадим ей объект — результат работы _getInputValues
-      this._submit(this._getInputValues());
+      this._submit(this._getInputValues())
+        .then(() => this.close()) // закрывается попап в `then`
+        .finally(() => {
+          this._submitButton.textContent = initialText;
+        }); // в любом случае меняется текст кнопки обратно на начальный в `finally`
     });
   }
 
   close = () => {
-    super.closePopup();
     this._form.reset();
+    super.closePopup();
   }
-  
-  // Вызов функции изменения текста
-  setSubmitButtonText(content) {
-    this._submitButton.textContent = content;
-  }
+
   //Выбираем все инпуты и добавляем в объек значения из разметки(профиля)
   setInputValues(getData) {
     this._inputList.forEach((item) => {
